@@ -1,13 +1,101 @@
+html {
+    height: 100%;
+
+    --var-bg-color: #333;
+    --var-fg-color: white;
+
+    --var-friendly-color: teal;
+    --var-enemy-color: red;
+
+    --var-health-color: #a44;
+    --var-shield-color: #a9a9a9;
+
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+    background-color: var(--var-bg-color);
+    color: var(--var-fg-color);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (min-width: 40rem) {
+    .card-container,
+    .character-container
+    {
+        display: flex;
+        gap: 50px;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+.roll-container {
+    height: 20vh;
+    margin: auto;
+}
+
+.die {
+    display: inline-block;
+    margin: 10px;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.die.success {
+    border: 1px solid var(--var-friendly-color)
+}
+
+.die.fail {
+    border: 1px solid var(--var-enemy-color)
+}
+
+.card,
+.character
+{
+    flex-grow: 1;
+    text-align: center;
+    padding: 0 1rem 1rem 1rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.card {
+    border: 1px solid var(--var-enemy-color);
+}
+
+.character {
+    border: 1px solid var(--var-friendly-color);
+}
+
+.card:hover {
+    filter: brightness(110%);
+    transform: scale(1.1);
+
+}
+
+.card h2,
+.character h2
+{
+    margin-bottom: 0;
+}
+
+.health-bar {
+    color: var(--var-health-color)
+}
+
+.health-bar .empty {
+    filter: brightness(80%);
+}
+
+.shield-bar {
+    color: var(--var-shield-color)
 }
