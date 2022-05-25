@@ -8,8 +8,8 @@ export const Roll = (props) => {
     </div>
 }
 
-const Die = (props) => {
-    return <div className={props.value >= 5 ? 'die success' : 'die fail'}>
+export const Die = (props) => {
+    return <div className={`${props.additionalClass} ${props.value >= 5 ? 'die success' : 'die fail'}`}>
         {props.value}
     </div>
 }

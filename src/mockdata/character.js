@@ -4,19 +4,19 @@ export const CHARACTER = {
     throwing: 4,
     handToHandCombat: 3,
     health: {
-        value: 5,
+        value: 6,
         max: 6
     },
+    items: [],
     weapon: {
-        name: "Kar98",
-        piercing: 2,
-        bonusWounds: 2,
-        concealment: 7
+        name: "Bare Hands",
+        dice: 0,
+        piercing: 0,
+        bonusWounds: 0,
     },
     armour: {
-        name: 'Kevlar vest',
-        protection: 2,
-        evasion: -1,
-        concealment: 1
+        name: 'Normal Clothing',
+        protection: 0,
+        evasion: 0,
     }
 }

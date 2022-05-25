@@ -2,6 +2,7 @@ html {
     height: 100%;
 
     --var-bg-color: #333;
+    --var-bg-light-color: #444;
     --var-fg-color: white;
 
     --var-friendly-color: teal;
@@ -24,6 +25,11 @@ body {
     justify-content: space-between;
 }
 
+.game > h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
 @media (min-width: 40rem) {
     .card-container,
     .character-container
@@ -36,7 +42,6 @@ body {
 }
 
 .roll-container {
-    height: 20vh;
     margin: auto;
 }
 
@@ -50,6 +55,13 @@ body {
     padding-top: 5px;
 }
 
+.die.small {
+    height: 1.4rem;
+    width: 1.4rem;
+    margin: 5px;
+    padding-top: 0;
+}
+
 .die.success {
     border: 1px solid var(--var-friendly-color)
 }
@@ -58,34 +70,75 @@ body {
     border: 1px solid var(--var-enemy-color)
 }
 
-.card,
-.character
-{
+.card {
     flex-grow: 1;
     text-align: center;
     padding: 0 1rem 1rem 1rem;
-    cursor: pointer;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.card {
+.card.enemy {
+    cursor: pointer;
     border: 1px solid var(--var-enemy-color);
 }
 
-.character {
+.card.friendly {
+    cursor: pointer;
     border: 1px solid var(--var-friendly-color);
 }
 
 .card:hover {
     filter: brightness(110%);
-    transform: scale(1.1);
-
+    background-color: var(--var-bg-light-color);
 }
 
 .card h2,
 .character h2
 {
     margin-bottom: 0;
+}
+
+.card > .dice-container {
+    margin-top: 1rem;
+    min-height: 2rem;
+}
+
+.card .card-type {
+    margin-bottom: 1rem;
+}
+
+.character {
+    flex-grow: 1;
+    text-align: center;
+    padding: 0 1rem 1rem 1rem;
+    margin-top: 2rem;
+    border: 1px solid var(--var-friendly-color);
+}
+
+div.character-items {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+div.character-items > div {
+    text-align: left;
+    border: 1px solid var(--var-friendly-color);
+    padding: 1rem;
+}
+
+div.character-items > div.character-item {
+    cursor: pointer
+}
+
+div.character-items > div.character-item:hover {
+    background-color: var(--var-bg-light-color);
+}
+
+ul.attribute-list {
+   list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .health-bar {
