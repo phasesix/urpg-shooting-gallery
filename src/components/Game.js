@@ -1,12 +1,14 @@
 import React from 'react';
 import {Card} from "./Card";
-import {ENEMIES} from '../mockdata/enemies'
-import {CHARACTER} from '../mockdata/character'
 import {Character} from "./Character";
 import {Roll} from "./Roll";
 import {uuidv4} from "../utils";
+
+import {ENEMIES} from '../mockdata/enemies'
+import {CHARACTER} from '../mockdata/character'
 import {WEAPONS} from "../mockdata/weapons";
 import {ITEMS} from "../mockdata/items";
+import {ARMOUR} from "../mockdata/armour";
 
 export class Game extends React.Component {
     constructor(props) {
@@ -14,12 +16,14 @@ export class Game extends React.Component {
         this.ENEMIES = ENEMIES
         this.WEAPONS = WEAPONS
         this.ITEMS = ITEMS
+        this.ARMOUR = ARMOUR
         this.state = {
             wave: 1,
             cards: [],
             character: CHARACTER,
             lastRoll: ['P', 'H', 'A', 'S', 'E', 6]
         }
+        this.handleCharacterItemClick = this.handleCharacterItemClick.bind(this)
     }
 
     async componentDidMount() {
@@ -31,6 +35,7 @@ export class Game extends React.Component {
         await this.#handleEnemyCard(card)
         await this.#handleWeaponCard(card)
         await this.#handleItemCard(card)
+        await this.#handleArmourCard(card)
 
         // roll all enemies
         for (let card of this.state.cards.filter(c => c.cardType === 'enemy')) {
@@ -47,7 +52,6 @@ export class Game extends React.Component {
     }
 
     async handleCharacterItemClick(event, item) {
-        // TODO this is undefined due to call from another component
         if (item.cardType === 'item') {
             if (item.effect.attribute === 'health') {
                 let character = this.state.character
@@ -58,6 +62,14 @@ export class Game extends React.Component {
                 this.setState({character: character})
             }
         }
+
+        let character = structuredClone(this.state.character)
+        character.items.find((obj, index) => {
+            if (obj && obj.uuid === item.uuid) {
+                character.items.splice(index, 1)
+            }
+        })
+        this.setState({character: character})
     }
 
     async #handleEnemyCard(card) {
@@ -93,6 +105,21 @@ export class Game extends React.Component {
                 if (obj && obj.uuid === card.uuid) {
                     let character = this.state.character
                     character.items.push(structuredClone(card))
+                    this.setState({character: character})
+                    cardArray.splice(index, 1)
+                    this.setState({cards: cardArray})
+                }
+            })
+        }
+    }
+
+    async #handleArmourCard(card) {
+        if (card.cardType === 'armour') {
+            let cardArray = this.state.cards.slice()
+            cardArray.find((obj, index) => {
+                if (obj && obj.uuid === card.uuid) {
+                    let character = this.state.character
+                    character.armour = structuredClone(card)
                     this.setState({character: character})
                     cardArray.splice(index, 1)
                     this.setState({cards: cardArray})
@@ -159,7 +186,8 @@ export class Game extends React.Component {
 
     async #fillCards(wave) {
         let cards = []
-        for (let i = 0; i < wave; i++) {
+        let amount = wave < 3? wave : 3
+        for (let i = 0; i < amount; i++) {
             let card = structuredClone(this.ENEMIES[Math.floor(Math.random() * this.ENEMIES.length)])
             card.uuid = uuidv4()
             cards.push(card)
@@ -176,6 +204,13 @@ export class Game extends React.Component {
             item.uuid = uuidv4()
             cards.push(item)
         }
+
+        if (wave === 1 || (Math.random() * 100) > 50) {
+            let armour = structuredClone(this.ARMOUR[Math.floor(Math.random() * this.ARMOUR.length)])
+            armour.uuid = uuidv4()
+            cards.push(armour)
+        }
+
         this.setState({cards: cards})
     }
 

@@ -141,6 +141,10 @@ ul.attribute-list {
     margin: 0;
 }
 
+.card.enemy ul.attribute-list {
+    margin-top: 1rem;
+}
+
 .health-bar {
     color: var(--var-health-color)
 }

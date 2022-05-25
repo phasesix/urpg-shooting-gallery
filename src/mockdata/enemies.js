@@ -11,6 +11,7 @@ export const ENEMIES = [
         action: {
             dice: 5,
             piercing: 0,
+            bonusWounds: 0,
         },
         protection: 1
     },
@@ -26,6 +27,7 @@ export const ENEMIES = [
         action: {
             dice: 5,
             piercing: 0,
+            bonusWounds: 0,
         },
         protection: 2
     },
@@ -41,6 +43,7 @@ export const ENEMIES = [
         action: {
             dice: 5,
             piercing: 0,
+            bonusWounds: 0,
         },
         protection: 1
     }
